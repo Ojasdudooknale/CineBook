@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Film, User, Lock, AlertCircle, Loader2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import PublicNavbar from '../components/PublicNavbar';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -34,7 +35,9 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#1a1a1a] flex items-center justify-center p-4 relative overflow-hidden">
+        <>
+        <PublicNavbar /> 
+        <div className="min-h-screen bg-[#1a1a1a] flex items-center justify-center p-4 pt-24 relative overflow-hidden">
             <div className="w-full max-w-md bg-[#1e1e1e] border border-white/10 p-8 rounded-3xl relative z-10">
                 <div className="text-center mb-8">
                     <div className="inline-flex items-center justify-center p-3 bg-gradient-to-br from-red-600 to-red-800 rounded-2xl shadow-lg shadow-red-900/40 mb-4">
@@ -126,6 +129,7 @@ const Login = () => {
                 </div>
             </div>
         </div>
+        </>
     );
 };
 

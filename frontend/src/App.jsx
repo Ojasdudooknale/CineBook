@@ -1,16 +1,13 @@
-import { useState } from 'react'
-import './App.css'
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import SignUp from './pages/SignUp';
 
-function App() {
+const App = () => (
+  <Routes>
+    <Route path="/signup" element={<SignUp onSwitchToLogin={() => {}} />} />
 
+    <Route path="*" element={<Navigate to="/signup" replace />} />
+  </Routes>
+);
 
-  return (
-    <>
-      <div className='flex justify-center align-middle h-screen items-center bg-gray-950'>
-        <h1 className="text-3xl font-bold underline text-white">Hello,Tailwind setup complete !!!</h1>
-      </div>
-    </>
-  )
-}
-
-export default App
+export default App;

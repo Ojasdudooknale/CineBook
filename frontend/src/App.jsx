@@ -9,6 +9,7 @@ const App = () => {
   return (
     <ToastProvider>
       <Routes>
+        <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<ErrorPage />} />

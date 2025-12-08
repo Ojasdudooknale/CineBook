@@ -178,7 +178,6 @@ const SignUp = () => {
                 <option value="" disabled className="text-gray-500">Select Gender</option>
                 <option value="Male" className="bg-[#1a1a1a]">Male</option>
                 <option value="Female" className="bg-[#1a1a1a]">Female</option>
-                <option value="Other" className="bg-[#1a1a1a]">Other</option>
               </select>
               <ChevronDown className="absolute right-4 top-3.5 text-gray-500 pointer-events-none" size={16} />
             </div>

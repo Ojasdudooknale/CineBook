@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import { ToastProvider } from './context/ToastContext';
 import ErrorPage from './pages/ErrorPage';
 import UserView from './pages/UserView';
+import MovieDetailPage from './pages/MovieDetailPage';
 const App = () => {
   return (
     <ToastProvider>
@@ -13,6 +14,7 @@ const App = () => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/userview" element={<UserView />} />
+        <Route path="/movie/:id" element={<MovieDetailPage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </ToastProvider>

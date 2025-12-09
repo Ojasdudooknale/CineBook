@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import PublicNavbar from '../components/PublicNavbar';
+import { useNavigate } from 'react-router-dom';
+
 import { MOCK_MOVIES, MOCK_THEATERS } from '../data/mockData';
 
 const GENRES = ['Action', 'Comedy', 'Drama', 'Horror', 'Romance']; // Add your genres here
@@ -8,6 +10,9 @@ const CustomerView = () => {
     const [selectedGenre, setSelectedGenre] = useState('All');
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+
+    const navigate = useNavigate();
+
 
     const filteredMovies = MOCK_MOVIES.filter((movie) => {
         const matchesGenre = selectedGenre === 'All' || movie.genre.includes(selectedGenre);
@@ -42,9 +47,8 @@ const CustomerView = () => {
                                 <button
                                     key={genre}
                                     onClick={() => setSelectedGenre(genre)}
-                                    className={`px-4 py-2 rounded-xl text-white border border-white/10 ${
-                                        selectedGenre === genre ? 'bg-orange-500' : 'bg-[#1e1e1e] hover:bg-red-600'
-                                    }`}
+                                    className={`px-4 py-2 rounded-xl text-white border border-white/10 ${selectedGenre === genre ? 'bg-orange-500' : 'bg-[#1e1e1e] hover:bg-red-600'
+                                        }`}
                                 >
                                     {genre}
                                 </button>
@@ -57,23 +61,25 @@ const CustomerView = () => {
                     {filteredMovies.map((movie) => (
                         <div key={movie.id} className="bg-[#1e1e1e] border border-white/10 p-4 rounded-3xl flex flex-col justify-between h-full">
                             <div>
-                                <img 
-                                    src={movie.image} 
-                                    alt={movie.title} 
-                                    className="rounded-xl mb-4 w-full h-48 object-cover" 
+                                <img
+                                    src={movie.image}
+                                    alt={movie.title}
+                                    className="rounded-xl mb-4 w-full h-48 object-cover"
                                 />
                                 <h2 className="text-xl font-bold text-white mb-2">{movie.title}</h2>
                                 <p className="text-gray-400 text-sm mb-2">{movie.genre}</p>
                                 <p className="text-gray-400 text-sm mb-4">{movie.desc}</p>
                             </div>
-                            <button className="w-full py-2 bg-red-600 hover:bg-red-500 text-white rounded-xl font-bold">
+                            <button
+                                onClick={() => navigate(`/movie/${movie.id}`)}
+                                className="w-full py-2 bg-red-600 hover:bg-red-500 text-white rounded-xl font-bold">
                                 View Details
                             </button>
                         </div>
                     ))}
                 </div>
 
-                
+
             </div>
         </>
     );

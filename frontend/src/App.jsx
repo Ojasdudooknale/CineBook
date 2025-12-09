@@ -7,6 +7,7 @@ import { ToastProvider } from './context/ToastContext';
 import ErrorPage from './pages/ErrorPage';
 import UserView from './pages/UserView';
 import MovieDetailPage from './pages/MovieDetailPage';
+import TermsAndServices from './pages/TermsAndServices';
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/userview" element={<UserView />} />
         <Route path="/movie/:id" element={<MovieDetailPage />} />
+        <Route path="/terms-and-services" element={<TermsAndServices />} />
 
         
         <Route path="*" element={<ErrorPage />} />

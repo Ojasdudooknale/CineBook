@@ -26,7 +26,7 @@ const Login = () => {
                 navigate('/dashboard');
             } else if (email === 'user@gmail.com' && password === 'user') {
                 console.log('Customer logged in');
-                navigate('/dashboard');
+                navigate('/userview');
             } else {
                 setError('Invalid credentials');
                 setIsLoading(false);

@@ -4,7 +4,7 @@ import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import { ToastProvider } from './context/ToastContext';
 import ErrorPage from './pages/ErrorPage';
-
+import UserView from './pages/UserView';
 const App = () => {
   return (
     <ToastProvider>
@@ -12,6 +12,7 @@ const App = () => {
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/userview" element={<UserView />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </ToastProvider>

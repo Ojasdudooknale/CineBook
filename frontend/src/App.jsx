@@ -8,6 +8,7 @@ import ErrorPage from './pages/ErrorPage';
 import UserView from './pages/UserView';
 import MovieDetailPage from './pages/MovieDetailPage';
 import TermsAndServices from './pages/TermsAndServices';
+import TheaterSelectionPage from './pages/TheaterSelectionPage';
 
 const App = () => {
   return (
@@ -25,6 +26,8 @@ const App = () => {
         <Route path="/userview" element={<UserView />} />
         <Route path="/movie/:id" element={<MovieDetailPage />} />
         <Route path="/terms-and-services" element={<TermsAndServices />} />
+        {/* Route for theater selection linked to specific movie */}
+        <Route path="/book/:id" element={<TheaterSelectionPage />} />
 
         
         <Route path="*" element={<ErrorPage />} />

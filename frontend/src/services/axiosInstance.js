@@ -26,14 +26,22 @@ axiosInstance.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response && error.response.status === 401) {
-            // Clear Redux + localStorage
-            store.dispatch(logoutRedux());
-
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-
-            // Hard redirect (safe even outside React)
-            window.location.href = "/login";
+            // Check if we're in the booking flow
+            const currentPath = window.location.pathname;
+            const isBookingFlow = currentPath.includes('/booking-success') || 
+                                  currentPath.includes('/movie/seats');
+            
+            // Only clear auth and redirect if NOT in booking flow
+            if (!isBookingFlow) {
+                // Clear Redux + localStorage
+                store.dispatch(logoutRedux());
+                localStorage.removeItem("token");
+                localStorage.removeItem("user");
+                
+                // Redirect to login
+                window.location.href = "/login";
+            }
+            // If in booking flow, just pass the error through without clearing auth
         }
 
         return Promise.reject(error);

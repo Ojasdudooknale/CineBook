@@ -4,6 +4,28 @@ import PublicNavbar from '../navbar/PublicNavbar';
 import Footer from '../Footer';
 
 const MovieDetailView = ({ movie, onBack, onBookTicket }) => {
+    // Helper function to convert YouTube URL to embed format
+    const getEmbedUrl = (url) => {
+        if (!url) return null;
+        
+        // If already an embed URL, return as is
+        if (url.includes('/embed/')) return url;
+        
+        // Convert regular YouTube URLs to embed format
+        // Handles: youtube.com/watch?v=VIDEO_ID, youtu.be/VIDEO_ID
+        const youtubeRegex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/;
+        const match = url.match(youtubeRegex);
+        
+        if (match && match[1]) {
+            return `https://www.youtube.com/embed/${match[1]}`;
+        }
+        
+        return url; // Return original URL for direct video files
+    };
+
+    const embedUrl = getEmbedUrl(movie.videoUrl);
+    const isYouTube = embedUrl && (embedUrl.includes('youtube.com/embed') || embedUrl.includes('youtu.be'));
+
     return (
         <>
             <div className="relative min-h-screen bg-[#1a1a1a] -mt-12">
@@ -18,13 +40,39 @@ const MovieDetailView = ({ movie, onBack, onBookTicket }) => {
                         <ChevronLeft size={20} className="mr-1" /> Back
                     </button>
 
-                    <img
-                        src={movie.image}
-                        alt={movie.title}
-                        className="w-full h-full object-cover opacity-60"
-                    />
+                    {embedUrl ? (
+                        // Display video if videoUrl exists
+                        isYouTube ? (
+                            <iframe
+                                src={`${embedUrl}${embedUrl.includes('?') ? '&' : '?'}autoplay=1&loop=1&playlist=${embedUrl.split('/embed/')[1]}`}
+                                title={movie.title}
+                                className="w-full h-full"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            />
+                        ) : (
+                            <video
+                                src={embedUrl}
+                                controls
+                                autoPlay
+                                loop
+                                className="w-full h-full object-cover"
+                            >
+                                Your browser does not support the video tag.
+                            </video>
+                        )
+                    ) : (
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent pointer-events-none"></div>
+                        // Fallback to poster image if no video URL
+                        <>
+                            <img
+                                src={movie.image}
+                                alt={movie.title}
+                                className="w-full h-full object-cover opacity-60"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent pointer-events-none"></div>
+                        </>
+                    )}
                 </div>
 
                 {/* Movie Details Section */}
@@ -43,7 +91,7 @@ const MovieDetailView = ({ movie, onBack, onBookTicket }) => {
 
                             <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-2"><Film size={20} className="text-red-500" /> Synopsis</h3>
                             <p className="text-gray-300 leading-relaxed text-lg opacity-90 max-w-4xl">
-                                {movie.desc} Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                {movie.desc}
                             </p>
                         </div>
 

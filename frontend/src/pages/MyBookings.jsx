@@ -19,7 +19,13 @@ const MyBookings = () => {
             movieTitle: booking.movieTitle,
             movieGenre: booking.genre,
             movieImage: booking.posterUrl || 'https://via.placeholder.com/300x450',
-            date: new Date(booking.showTime).toLocaleDateString(),
+            date: (() => {
+              const d = new Date(booking.showTime);
+              const day = String(d.getDate()).padStart(2, '0');
+              const month = String(d.getMonth() + 1).padStart(2, '0');
+              const year = d.getFullYear();
+              return `${day}/${month}/${year}`;
+            })(),
             time: new Date(booking.showTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
             theaterName: booking.theatreName,
             seats: ['General'], // Placeholder as backend doesn't provide seats yet
@@ -94,7 +100,7 @@ const MyBookings = () => {
                     </div>
                     <div className="text-right">
                        <p className="text-xs text-gray-500 uppercase font-bold">Total</p>
-                       <p className="text-red-500 font-bold">${booking.total.toFixed(2)}</p>
+                       <p className="text-red-500 font-bold">₹{booking.total.toFixed(2)}</p>
                     </div>
                  </div>
                  

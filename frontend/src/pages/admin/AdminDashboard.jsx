@@ -209,7 +209,13 @@ const AdminDashboard = () => {
                                         <h4 className="font-medium text-white">{req.theatreName}</h4>
                                         <div className="flex items-center gap-3 text-xs text-gray-400 mt-1">
                                             <span className="flex items-center gap-1"><MapPin size={12}/> {req.location}</span>
-                                            <span className="flex items-center gap-1"><Calendar size={12}/> {new Date(req.createdAt).toLocaleDateString()}</span>
+                                            <span className="flex items-center gap-1"><Calendar size={12}/> {(() => {
+                                                const d = new Date(req.createdAt);
+                                                const day = String(d.getDate()).padStart(2, '0');
+                                                const month = String(d.getMonth() + 1).padStart(2, '0');
+                                                const year = d.getFullYear();
+                                                return `${day}/${month}/${year}`;
+                                            })()}</span>
                                         </div>
                                     </div>
                                 </div>

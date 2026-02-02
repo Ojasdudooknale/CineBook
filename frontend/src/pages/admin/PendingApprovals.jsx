@@ -67,7 +67,13 @@ const PendingApprovals = () => {
                                             <MapPin size={14} /> {req.location}
                                         </span>
                                         <span className="flex items-center gap-1">
-                                            <Calendar size={14} /> {new Date(req.createdAt).toLocaleDateString()}
+                                            <Calendar size={14} /> {(() => {
+                                                const d = new Date(req.createdAt);
+                                                const day = String(d.getDate()).padStart(2, '0');
+                                                const month = String(d.getMonth() + 1).padStart(2, '0');
+                                                const year = d.getFullYear();
+                                                return `${day}/${month}/${year}`;
+                                            })()}
                                         </span>
                                     </div>
                                 </div>

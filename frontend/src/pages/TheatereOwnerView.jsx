@@ -47,7 +47,7 @@ const TheaterOwnerView = ({ addToast }) => {
         {[ // Fixed the array syntax here
           {
             label: 'Total Revenue',
-            value: `$${MOCK_STATS.revenue}`,
+            value: `₹${MOCK_STATS.revenue}`,
             icon: DollarSign,
             color: 'text-green-400',
             bg: 'bg-green-500/10',

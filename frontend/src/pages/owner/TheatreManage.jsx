@@ -348,12 +348,15 @@ const TheatreManage = () => {
                                         <div className="flex justify-between text-gray-400">
                                             <span>Show Time:</span>
                                             <span className="text-white font-medium">
-                                                {show.showTime ? new Date(show.showTime).toLocaleString('en-US', {
-                                                    month: 'short',
-                                                    day: 'numeric',
-                                                    hour: '2-digit',
-                                                    minute: '2-digit'
-                                                }) : 'N/A'}
+                                                {show.showTime ? (() => {
+                                                    const d = new Date(show.showTime);
+                                                    const day = String(d.getDate()).padStart(2, '0');
+                                                    const month = String(d.getMonth() + 1).padStart(2, '0');
+                                                    const year = d.getFullYear();
+                                                    const hours = String(d.getHours()).padStart(2, '0');
+                                                    const minutes = String(d.getMinutes()).padStart(2, '0');
+                                                    return `${day}/${month}/${year} ${hours}:${minutes}`;
+                                                })() : 'N/A'}
                                             </span>
                                         </div>
                                         <div className="flex justify-between text-gray-400">

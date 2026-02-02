@@ -105,6 +105,7 @@ public class AdminServiceImpl implements AdminService {
                 .genre(movieDTO.getGenre())
                 .releaseDate(movieDTO.getReleaseDate())
                 .posterUrl(movieDTO.getPosterUrl())
+                .videoUrl(movieDTO.getVideoUrl())
                 .movieStatus(movieDTO.getMovieStatus() != null ? movieDTO.getMovieStatus() : MovieStatus.ACTIVE)
                 .cast(movieDTO.getCast())
                 .crew(movieDTO.getCrew())
@@ -125,6 +126,7 @@ public class AdminServiceImpl implements AdminService {
         movie.setGenre(movieDTO.getGenre());
         movie.setReleaseDate(movieDTO.getReleaseDate());
         movie.setPosterUrl(movieDTO.getPosterUrl());
+        movie.setVideoUrl(movieDTO.getVideoUrl());
         movie.setCast(movieDTO.getCast());
         movie.setCrew(movieDTO.getCrew());
         if (movieDTO.getMovieStatus() != null)

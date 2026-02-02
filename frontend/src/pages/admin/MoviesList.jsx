@@ -16,6 +16,7 @@ const MoviesList = () => {
         rating: "",
         description: "",
         posterUrl: "",
+        videoUrl: "",
         language: "",
         releaseDate: "",
         cast: "",
@@ -56,6 +57,7 @@ const MoviesList = () => {
             rating: movie.rating || "",
             description: movie.description || "",
             posterUrl: movie.posterUrl || "",
+            videoUrl: movie.videoUrl || "",
             language: movie.language || "",
             releaseDate: movie.releaseDate || "",
             cast: movie.cast || "",
@@ -307,6 +309,21 @@ const MoviesList = () => {
                                     value={formData.posterUrl}
                                     onChange={handleInputChange}
                                 />
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="text-sm text-gray-400">Video URL</label>
+                                <input 
+                                    type="url" 
+                                    name="videoUrl"
+                                    className="w-full bg-[#2a2a2a] border border-white/10 rounded-lg px-4 py-2 focus:border-red-500 focus:outline-none"
+                                    placeholder="https://www.youtube.com/watch?v=... or https://youtu.be/..."
+                                    value={formData.videoUrl}
+                                    onChange={handleInputChange}
+                                />
+                                <p className="text-xs text-gray-500">
+                                    Supports YouTube URLs (will auto-convert to embed) or direct video file URLs
+                                </p>
                             </div>
 
                             <div className="space-y-2">

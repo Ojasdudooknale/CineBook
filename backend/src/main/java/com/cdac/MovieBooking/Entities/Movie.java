@@ -31,7 +31,12 @@ public class Movie {
     private String language;
     private String genre;
     private LocalDate releaseDate;
+
+    @Column(length = 2048)
     private String posterUrl;
+
+    @Column(length = 2048)
+    private String videoUrl;
 
     @Enumerated(EnumType.STRING)
     private MovieStatus movieStatus;
@@ -40,7 +45,7 @@ public class Movie {
     private LocalDateTime createdAt;
 
     private String cast;
-    private  String crew;
+    private String crew;
 
     private Double rating;
 }

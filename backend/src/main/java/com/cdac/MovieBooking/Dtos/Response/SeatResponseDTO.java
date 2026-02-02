@@ -14,7 +14,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SeatResponseDTO {
-    private Long seatId;
+    private Long showSeatId; // ID of the ShowSeat entity (needed for booking)
+    private Long seatId; // ID of the Seat entity
     private String seatNumber;
     private SeatType seatType;
     private BigDecimal price;

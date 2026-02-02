@@ -21,7 +21,7 @@ const BookingView = ({
     let total = 0;
     rows.forEach(row => {
       seatsByRow[row]?.forEach(seat => {
-        if (selectedSeats.includes(seat.seatId)) {
+        if (selectedSeats.includes(seat.showSeatId)) {
           total += Number(seat.price);
         }
       });
@@ -52,7 +52,7 @@ const BookingView = ({
   const selectedSeatNumbers = [];
   rows.forEach(row => {
     seatsByRow[row]?.forEach(seat => {
-      if (selectedSeats.includes(seat.seatId)) {
+      if (selectedSeats.includes(seat.showSeatId)) {
         selectedSeatNumbers.push(seat.seatNumber);
       }
     });
@@ -86,56 +86,69 @@ const BookingView = ({
             {layoutType} Screen • {availableSeats}/{totalSeats}
           </p>
 
-          {rows.map(row => (
-            <div key={row} className="flex items-center gap-2 mb-2">
-              <span className="w-6 text-gray-500 font-bold">{row}</span>
+          {/* Scrollable Seat Container */}
+          <div className="overflow-x-auto overflow-y-auto max-h-[500px] pr-2" style={{ scrollbarWidth: 'thin' }}>
+            {rows.map(row => (
+              <div key={row} className="flex items-center gap-2 mb-2">
+                <span className="w-6 text-gray-500 font-bold sticky left-0 bg-[#1e1e1e] z-10">{row}</span>
 
-              <div className="flex gap-2">
-                {seatsByRow[row].map(seat => {
-                  const isSold = seat.status !== 'AVAILABLE';
-                  const isSelected = selectedSeats.includes(seat.seatId);
+                <div className="flex gap-2">
+                  {seatsByRow[row].map(seat => {
+                    const isSold = seat.status !== 'AVAILABLE';
+                    const isSelected = selectedSeats.includes(seat.showSeatId);
 
-                  return (
-                    <button
-                      key={seat.seatId}
-                      disabled={isSold}
-                      onClick={() => onSeatClick(seat.seatId)}
-                      className={`w-10 h-10 rounded-lg text-xs font-semibold
-                                                ${getSeatTypeStyle(seat.seatType, isSelected, isSold)}
-                                            `}
-                      title={`${seat.seatNumber} - ₹${seat.price}`}
-                    >
-                      {seat.seatNumber.replace(row, '')}
-                    </button>
-                  );
-                })}
+                    return (
+                      <button
+                        key={seat.showSeatId}
+                        disabled={isSold}
+                        onClick={() => onSeatClick(seat.showSeatId)}
+                        className={`w-10 h-10 rounded-lg text-xs font-semibold flex-shrink-0
+                                                  ${getSeatTypeStyle(seat.seatType, isSelected, isSold)}
+                                              `}
+                        title={`${seat.seatNumber} - ₹${seat.price}`}
+                      >
+                        {seat.seatNumber.replace(row, '')}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         {/* SUMMARY */}
-        <div className="bg-[#1e1e1e] p-6 rounded-3xl border border-white/10 sticky top-28">
+        <div className="bg-[#1e1e1e] p-6 rounded-3xl border border-white/10 h-fit" style={{ position: 'sticky', top: '7rem' }}>
           <h3 className="text-xl font-bold text-white mb-6">Booking Summary</h3>
 
-          <div className="space-y-4 text-sm text-gray-400">
-            <div className="flex justify-between">
-              <span>Seats</span>
-              <span className="text-white">{selectedSeatNumbers.join(', ') || '-'}</span>
+          <div className="space-y-4">
+            {/* Seats Display */}
+            <div className="bg-[#0a0a0a] p-4 rounded-xl border border-white/5">
+              <p className="text-xs text-gray-500 uppercase font-bold mb-2">Seats</p>
+              <p className="text-white font-medium">
+                {selectedSeatNumbers.length > 0 ? selectedSeatNumbers.join(', ') : 'No seats selected'}
+              </p>
             </div>
 
-            <div className="border-t border-white/10 pt-4 flex justify-between">
-              <span className="text-white font-semibold">Total</span>
-              <span className="text-2xl text-red-500 font-bold">₹{total}</span>
+            {/* Total Amount */}
+            <div className="border-t border-white/10 pt-4 mt-4">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-gray-400 text-sm">Total Amount</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-white font-semibold text-lg">Total</span>
+                <span className="text-3xl text-red-500 font-bold">₹{total}</span>
+              </div>
             </div>
           </div>
 
           <button
             disabled={!selectedSeats.length}
             onClick={() => onPayment(total)}
-            className="mt-6 w-full bg-red-600 hover:bg-red-500 text-white py-4 rounded-xl font-bold"
+            className="mt-6 w-full bg-red-600 hover:bg-red-500 disabled:bg-gray-600 disabled:cursor-not-allowed text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all"
           >
-            <CreditCard size={18} /> Confirm Payment
+            <CreditCard size={18} /> 
+            {selectedSeats.length > 0 ? 'Confirm Payment' : 'Select Seats First'}
           </button>
         </div>
       </div>

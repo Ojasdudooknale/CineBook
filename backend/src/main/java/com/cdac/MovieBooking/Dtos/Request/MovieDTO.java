@@ -14,6 +14,7 @@ public class MovieDTO {
     private String genre;
     private LocalDate releaseDate;
     private String posterUrl;
+    private String videoUrl;
     private MovieStatus movieStatus;
     private String cast;
     private String crew;

@@ -34,7 +34,11 @@ public class PublicServiceImpl implements PublicService {
         private final ShowSeatRepository showSeatRepository;
 
         public List<Movie> getAllMovies() {
-                return movieRepository.findAll();
+                return movieRepository.findAll()
+                                .stream()
+                                .filter(movie -> movie
+                                                .getMovieStatus() == com.cdac.MovieBooking.Entities.Enums.MovieStatus.ACTIVE)
+                                .collect(Collectors.toList());
         }
 
         public Movie getMovieById(Long id) {
@@ -125,6 +129,7 @@ public class PublicServiceImpl implements PublicService {
                                         priceMap.putIfAbsent(seatType, showSeat.getPrice());
 
                                         return SeatResponseDTO.builder()
+                                                        .showSeatId(showSeat.getShowSeatId())
                                                         .seatId(showSeat.getSeat().getSeatId())
                                                         .seatNumber(seatNumber)
                                                         .seatType(seatType)

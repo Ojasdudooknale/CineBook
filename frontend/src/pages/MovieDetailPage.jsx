@@ -29,6 +29,7 @@ const MovieDetailPage = () => {
                         director: backendMovie.crew, // Assuming crew field contains director for now
                         producer: 'Unknown', // Placeholder as backend doesn't differentiate yet
                         image: backendMovie.posterUrl || 'https://via.placeholder.com/1280x720',
+                        videoUrl: backendMovie.videoUrl,
                     });
                 } else {
                     setError("Movie not found");
